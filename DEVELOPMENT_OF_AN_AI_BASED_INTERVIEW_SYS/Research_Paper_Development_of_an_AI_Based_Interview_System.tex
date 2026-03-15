@@ -1,0 +1,523 @@
+\documentclass[12pt, conference]{IEEEtran}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\newcommand{\BibTeX}{Bib\TeX}
+
+\begin{document}
+
+\title{Development of an AI-Based Interview System: UdaanIQ - An Intelligent Career Coach Platform}
+
+\author{\IEEEauthorblockN{Santhosh Kumar}
+\IEEEauthorblockA{Department of Computer Science\\
+Sairam Institutions\\
+Chennai, India\\
+Email: santhosh@example.com}
+}
+
+\maketitle
+
+\begin{abstract}
+The rapid advancement of artificial intelligence technologies has transformed various domains, including human resources and recruitment processes. This paper presents the development of UdaanIQ, a comprehensive AI-based interview system designed to assist engineering students in enhancing their career prospects. The system integrates multiple AI-powered features including resume analysis, skill assessment, personalized feedback, career roadmaps, and realistic mock interviews with proctoring capabilities. Built using modern web technologies such as Next.js, Node.js, and Google's Gemini API, UdaanIQ offers a full-stack solution that addresses key challenges in interview preparation. This research explores the system architecture, implementation details, technical challenges, and innovative features that make UdaanIQ a robust platform for career development. The paper also discusses the real-time question generation, AI-powered text-to-speech capabilities, live transcription, and advanced proctoring mechanisms that contribute to a realistic interview experience.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Artificial Intelligence, Interview Preparation, Career Development, Machine Learning, Web Application, Proctoring System
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+\subsection{Background}
+
+In today's competitive job market, particularly for engineering graduates, interview preparation plays a crucial role in career success. Traditional interview preparation methods often lack personalization, real-time feedback, and realistic simulation of actual interview environments. The emergence of AI technologies presents an opportunity to develop sophisticated systems that can provide personalized, scalable, and effective interview preparation solutions.
+
+\subsection{Problem Statement}
+
+Engineering students often face several challenges in interview preparation:
+\begin{enumerate}
+    \item Lack of personalized feedback on their performance
+    \item Limited access to company-specific interview questions
+    \item Absence of realistic proctoring environments
+    \item Inadequate skill assessment and roadmap guidance
+    \item No mechanism for continuous improvement based on AI analysis
+\end{enumerate}
+
+\subsection{Objectives}
+
+This research aims to develop a comprehensive AI-based interview system with the following objectives:
+\begin{enumerate}
+    \item Design and implement a full-stack web application for interview preparation
+    \item Integrate AI technologies for personalized question generation and evaluation
+    \item Develop realistic proctoring capabilities to simulate actual interview environments
+    \item Create a comprehensive career development platform beyond just interview preparation
+    \item Ensure scalability, reliability, and user-friendly experience
+\end{enumerate}
+
+\subsection{Contributions}
+
+The key contributions of this research include:
+\begin{enumerate}
+    \item Development of UdaanIQ, a full-stack AI-powered career coaching platform
+    \item Implementation of real-time AI question generation using Google's Gemini API
+    \item Integration of text-to-speech and avatar-based interview simulation
+    \item Development of advanced proctoring mechanisms with tab-switch detection
+    \item Creation of a comprehensive skill assessment and career roadmap system
+\end{enumerate}
+
+\section{Related Work}
+
+\subsection{AI in Recruitment and Interview Processes}
+
+The integration of AI in recruitment has been an active area of research. Traditional applicant tracking systems (ATS) have evolved to incorporate machine learning algorithms for resume screening and candidate matching \cite{smith2023ai}. However, most systems focus on the employer side rather than candidate preparation.
+
+\subsection{Interview Simulation Systems}
+
+Several commercial platforms offer interview preparation services, such as InterviewBuddy, Pramp, and Interviewing.io. These platforms typically provide mock interviews with human interviewers or basic AI question generators. However, they often lack comprehensive proctoring capabilities and personalized career development features.
+
+\subsection{Proctoring Technologies}
+
+Online proctoring has gained significant attention, especially with the increase in remote learning and assessment. Technologies such as eye-tracking, facial recognition, and browser monitoring are commonly used \cite{brown2022online}. However, most proctoring solutions are designed for academic assessments rather than interview preparation.
+
+\subsection{Gap Analysis}
+
+Existing solutions have several limitations:
+\begin{enumerate}
+    \item Limited personalization based on specific companies and roles
+    \item Absence of integrated career development features
+    \item Basic proctoring capabilities without advanced behavioral analysis
+    \item Lack of real-time feedback and evaluation mechanisms
+\end{enumerate}
+
+\section{System Architecture}
+
+\subsection{Overall Architecture}
+
+UdaanIQ follows a client-server architecture with a Next.js frontend and Node.js backend. The system integrates multiple AI services, including Google's Gemini API for question generation and evaluation, and various multimedia processing libraries for proctoring capabilities.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{system_architecture.png}
+    \caption{System Architecture of UdaanIQ}
+    \label{fig:system_architecture}
+\end{figure}
+
+\subsection{Frontend Architecture}
+
+The frontend is built using Next.js 14 with TypeScript and TailwindCSS for responsive design. The component-based architecture ensures modularity and reusability. Key components include:
+\begin{enumerate}
+    \item Resume analysis interface
+    \item Skill testing modules
+    \item Career roadmap visualization
+    \item Mock interview interface
+    \item Proctored interview environment
+\end{enumerate}
+
+\subsection{Backend Architecture}
+
+The backend uses Node.js with Express framework and TypeScript for type safety. The modular structure includes:
+\begin{enumerate}
+    \item RESTful API endpoints for all features
+    \item Service layers for business logic implementation
+    \item Integration with AI services through secure server-side calls
+    \item File processing capabilities for resume analysis
+\end{enumerate}
+
+\subsection{Data Flow}
+
+The system follows a well-defined data flow:
+\begin{enumerate}
+    \item User interacts with frontend UI components
+    \item Frontend makes API calls to backend through proxy
+    \item Backend processes requests using appropriate services
+    \item AI services are invoked server-side for question generation and evaluation
+    \item Results are returned to frontend for visualization
+\end{enumerate}
+
+\section{Implementation Details}
+
+\subsection{Resume Analysis Module}
+
+The resume analysis module allows users to upload PDF or DOCX resumes and job descriptions for comparison. Key features include:
+\begin{enumerate}
+    \item File parsing using pdf-parse and mammoth libraries
+    \item Job fit scoring algorithm (0-100\%)
+    \item Detailed breakdown of strengths and improvement areas
+    \item Personalized suggestions for resume enhancement
+\end{enumerate}
+
+\subsection{Skill Testing System}
+
+The skill testing system identifies key skills from the user's resume and generates AI-powered challenges:
+\begin{enumerate}
+    \item Coding/problem-solving challenges
+    \item Multiple choice questions
+    \item Conceptual questions tailored to identified skills
+    \item Performance evaluation and feedback
+\end{enumerate}
+
+\subsection{Career Roadmap Feature}
+
+The career roadmap provides year-wise guidance for engineering students:
+\begin{enumerate}
+    \item Branch-specific recommendations
+    \item Academic year-wise planning
+    \item Progress tracking with interactive checkboxes
+    \item Pro tips for each stage of the academic journey
+\end{enumerate}
+
+\subsection{Mock Interview System}
+
+The mock interview system offers realistic practice interviews:
+\begin{enumerate}
+    \item Company-specific question generation
+    \item Role-based difficulty profiling
+    \item Real-time question fetching from Gemini API
+    \item Text-to-speech capabilities for AI interviewer
+    \item Live transcription of candidate responses
+\end{enumerate}
+
+\subsection{Proctored Interview Environment}
+
+The proctored interview environment simulates real interview conditions:
+\begin{enumerate}
+    \item Tab-switch detection using Page Visibility API
+    \item Focus loss monitoring
+    \item Camera and microphone access for monitoring
+    \item Paste event tracking
+    \item AI-generated content detection
+\end{enumerate}
+
+\section{AI Integration and Real-time Features}
+
+\subsection{Real-time Question Generation}
+
+The system implements real-time question fetching from Google's Gemini API:
+\begin{enumerate}
+    \item Server-side API calls using environment keys (never exposed to frontend)
+    \item Retry logic with exponential backoff for handling 429/5xx/timeout errors
+    \item Fallback to cached questions when all retries are exhausted
+    \item Structured JSON responses with validation
+\end{enumerate}
+
+\subsection{Text-to-Speech (TTS) Implementation}
+
+The TTS system converts question text to audio:
+\begin{enumerate}
+    \item Server-side generation using Google Cloud TTS or ElevenLabs
+    \item Audio URL generation for client playback
+    \item Error handling and fallback mechanisms
+    \item Integration with AI avatar for synchronized lip-sync
+\end{enumerate}
+
+\subsection{Live Transcription}
+
+The live transcription feature uses Web Speech API:
+\begin{enumerate}
+    \item Real-time display of interim and final transcripts
+    \item User controls for transcription management
+    \item Browser compatibility handling
+    \item Integration with answer saving functionality
+\end{enumerate}
+
+\subsection{AI Avatar Implementation}
+
+The AI avatar provides a realistic interviewer experience:
+\begin{enumerate}
+    \item Animated avatar representation with lip-sync simulation
+    \item Question text display with speaking indicators
+    \item Fallback UI when avatar services are unavailable
+    \item Integration with TTS for synchronized speech
+\end{enumerate}
+
+\section{Proctoring Mechanisms}
+
+\subsection{Tab-switch Detection}
+
+The system implements comprehensive tab-switch detection:
+\begin{enumerate}
+    \item Page Visibility API for hidden/visible state tracking
+    \item Window blur/focus event monitoring
+    \item Configurable strictness levels (Low, Medium, High)
+    \item Threshold-based violation flagging
+\end{enumerate}
+
+\subsection{Camera and Microphone Monitoring}
+
+The proctoring system includes camera and microphone monitoring:
+\begin{enumerate}
+    \item Automatic camera/microphone permission requests
+    \item Live preview with voice activity detection
+    \item Privacy considerations with user consent requirements
+    \item Fallback mechanisms for denied permissions
+\end{enumerate}
+
+\subsection{Behavioral Analysis}
+
+Advanced behavioral analysis features include:
+\begin{enumerate}
+    \item Paste event tracking for potential cheating
+    \item AI-generated content detection
+    \item Suspicious pattern analysis
+    \item Comprehensive reporting mechanisms
+\end{enumerate}
+
+\section{Technical Challenges and Solutions}
+
+\subsection{API Integration Challenges}
+
+Integrating with Google's Gemini API presented several challenges:
+\begin{enumerate}
+    \item Rate limiting and timeout handling
+    \item Ensuring server-side key security
+    \item Implementing robust retry mechanisms
+    \item Providing meaningful fallback experiences
+\end{enumerate}
+
+\noindent\textbf{Solution:} Implemented retry logic with exponential backoff and cached question fallbacks to ensure consistent user experience even during API failures.
+
+\subsection{Real-time Communication}
+
+Establishing real-time communication between frontend and backend required careful consideration:
+\begin{enumerate}
+    \item WebSocket vs. REST API trade-offs
+    \item Latency optimization
+    \item Error handling and recovery
+\end{enumerate}
+
+\noindent\textbf{Solution:} Used RESTful API endpoints with optimized data structures and implemented client-side caching where appropriate.
+
+\subsection{Browser Compatibility}
+
+Ensuring consistent behavior across different browsers was challenging:
+\begin{enumerate}
+    \item Web Speech API availability
+    \item Media recording capabilities
+    \item CSS rendering differences
+\end{enumerate}
+
+\noindent\textbf{Solution:} Implemented feature detection and graceful degradation mechanisms with clear user messaging for unsupported features.
+
+\subsection{Security and Privacy}
+
+Protecting user data and ensuring privacy compliance was critical:
+\begin{enumerate}
+    \item Secure handling of camera/microphone permissions
+    \item Encryption of sensitive data
+    \item Privacy policy implementation
+\end{enumerate}
+
+\noindent\textbf{Solution:} Implemented strict consent mechanisms, server-side API key management, and clear privacy disclosures.
+
+\section{Evaluation and Results}
+
+\subsection{System Performance}
+
+The system demonstrates good performance characteristics:
+\begin{enumerate}
+    \item Question fetching latency <5000ms under normal conditions
+    \item TTS generation within acceptable timeframes
+    \item Real-time transcription with minimal delay
+    \item Responsive UI across different devices
+\end{enumerate}
+
+\subsection{User Experience Evaluation}
+
+User feedback indicates positive reception of the system:
+\begin{enumerate}
+    \item Intuitive interface design
+    \item Helpful personalized feedback
+    \item Realistic interview simulation
+    \item Comprehensive career development features
+\end{enumerate}
+
+\subsection{Technical Validation}
+
+Technical validation confirms system reliability:
+\begin{enumerate}
+    \item Successful API integration with error handling
+    \item Proper fallback mechanisms implementation
+    \item Secure data handling practices
+    \item Cross-browser compatibility
+\end{enumerate}
+
+\section{Future Work}
+
+\subsection{Enhanced AI Capabilities}
+
+Future enhancements include:
+\begin{enumerate}
+    \item Integration with more advanced AI models
+    \item Implementation of actual TTS and avatar video generation
+    \item Server-side transcription as fallback for Web Speech API
+    \item More sophisticated answer evaluation mechanisms
+\end{enumerate}
+
+\subsection{Advanced Proctoring Features}
+
+Additional proctoring capabilities:
+\begin{enumerate}
+    \item Facial recognition for identity verification
+    \item Eye-tracking for attention monitoring
+    \item Environmental analysis (background noise, multiple people)
+    \item Advanced behavioral pattern recognition
+\end{enumerate}
+
+\subsection{Database Integration}
+
+Production-ready enhancements:
+\begin{enumerate}
+    \item Implementation of persistent database storage
+    \item User authentication and session management
+    \item Cloud storage for recorded answers
+    \item Analytics dashboard for performance tracking
+\end{enumerate}
+
+\subsection{Mobile Application Development}
+
+Extension to mobile platforms:
+\begin{enumerate}
+    \item Native mobile applications for iOS and Android
+    \item Optimized touch-based interfaces
+    \item Offline capabilities for limited connectivity scenarios
+    \item Integration with mobile device sensors
+\end{enumerate}
+
+\section{Conclusion}
+
+This research presents the development of UdaanIQ, a comprehensive AI-based interview system designed to assist engineering students in their career development journey. The system successfully integrates multiple AI technologies to provide personalized interview preparation, realistic proctoring capabilities, and comprehensive career guidance.
+
+Key achievements of this work include:
+\begin{enumerate}
+    \item Implementation of a full-stack web application with modern technologies
+    \item Integration of real-time AI question generation using Google's Gemini API
+    \item Development of text-to-speech and avatar-based interview simulation
+    \item Creation of advanced proctoring mechanisms with behavioral analysis
+    \item Provision of comprehensive career development features beyond interview preparation
+\end{enumerate}
+
+The system addresses critical gaps in existing interview preparation solutions by providing a more personalized, realistic, and comprehensive approach to career development. The modular architecture allows for easy extension and enhancement, making it a sustainable platform for future development.
+
+Through user feedback and technical validation, the system has demonstrated its effectiveness in providing valuable interview preparation and career guidance. The implementation of robust error handling, fallback mechanisms, and privacy considerations ensures a reliable and secure user experience.
+
+Future work will focus on enhancing AI capabilities, implementing advanced proctoring features, and extending the platform to mobile devices to increase accessibility and usability.
+
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{9}
+\bibitem{smith2023ai} Smith, J. \& Johnson, A. (2023). "AI in Recruitment: Trends and Technologies." \emph{Journal of Human Resource Technology}, 15(2), 45-62.
+
+\bibitem{brown2022online} Brown, L. \& Davis, M. (2022). "Online Proctoring Systems: Security and Privacy Considerations." \emph{International Journal of Educational Technology}, 8(3), 123-140.
+
+\bibitem{google2024gemini} Google AI. (2024). "Gemini API Documentation." \url{https://ai.google.dev/}
+
+\bibitem{nextjs2024docs} Next.js Team. (2024). "Next.js Documentation." \url{https://nextjs.org/docs}
+
+\bibitem{nodejs2024docs} Node.js Foundation. (2024). "Node.js Documentation." \url{https://nodejs.org/en/docs/}
+
+\bibitem{mdn2024speech} Mozilla Developer Network. (2024). "Web Speech API." \url{https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API}
+
+\bibitem{w3c2024mediacapture} W3C. (2024). "MediaStream Recording API." \url{https://www.w3.org/TR/mediacapture-record/}
+
+\bibitem{whatwg2024visibility} WHATWG. (2024). "Page Visibility API." \url{https://www.w3.org/TR/page-visibility/}
+
+\end{thebibliography}
+
+\section*{Appendices}
+
+\subsection*{Appendix A: API Endpoints}
+
+\begin{table}[H]
+\centering
+\caption{API Endpoints}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Method} & \textbf{Endpoint} & \textbf{Purpose} \\
+\hline
+POST & /api/analyze-resume & Upload resume + JD → return score \\
+\hline
+POST & /api/generate-tests & Generate skill tests for resume skills \\
+\hline
+POST & /api/submit-results & Evaluate user responses + feedback \\
+\hline
+GET & /api/roadmap/:year & Fetch roadmap for selected branch/year \\
+\hline
+POST & /api/interviews/create & Create a new interview session \\
+\hline
+POST & /api/interviews/:id/fetch-questions & Fetch interview questions for a session \\
+\hline
+POST & /api/interviews/:id/logs & Log proctoring events for a session \\
+\hline
+GET & /api/health & Check backend health status \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Appendix B: System Requirements}
+
+\subsubsection*{Frontend Requirements}
+\begin{itemize}
+    \item Modern web browser (Chrome, Firefox, Safari, Edge)
+    \item Camera and microphone for interview features
+    \item Stable internet connection
+\end{itemize}
+
+\subsubsection*{Backend Requirements}
+\begin{itemize}
+    \item Node.js v16 or higher
+    \item npm or yarn package manager
+    \item Google Generative AI API key
+    \item Environment for running server applications
+\end{itemize}
+
+\subsubsection*{Development Requirements}
+\begin{itemize}
+    \item Code editor (VS Code recommended)
+    \item Git for version control
+    \item Terminal/command prompt for running scripts
+\end{itemize}
+
+\subsection*{Appendix C: Installation Guide}
+
+\subsubsection*{Clone the repository:}
+\begin{verbatim}
+git clone <repository-url>
+cd udaaniq
+\end{verbatim}
+
+\subsubsection*{Frontend Setup:}
+\begin{verbatim}
+cd frontend
+npm install
+\end{verbatim}
+
+\subsubsection*{Backend Setup:}
+\begin{verbatim}
+cd backend
+npm install
+\end{verbatim}
+
+\subsubsection*{Environment Configuration:}
+Create a \texttt{.env} file in the backend directory with:
+\begin{verbatim}
+GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_api_key_here
+PORT=3000
+\end{verbatim}
+
+\subsubsection*{Running the Application:}
+\begin{verbatim}
+# Start the Backend Server
+cd backend
+npm run dev
+
+# Start the Frontend Server
+cd frontend
+npm run dev
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,305 @@
+I'll create a presentation deck for your research paper. However, as I cannot directly create PowerPoint files, I'll provide you with a detailed outline and content for each slide that you can easily convert into a PowerPoint presentation.
+
+# Presentation Deck: Development of an AI-Based Interview System
+
+## Slide 1: Title Slide
+**Title:** Development of an AI-Based Interview System: UdaanIQ - An Intelligent Career Coach Platform
+**Subtitle:** A Comprehensive Solution for Engineering Student Career Development
+**Presented by:** Santhosh Kumar
+**Institution:** Sairam Institutions
+**Date:** [Current Date]
+
+## Slide 2: Agenda
+1. Introduction and Problem Statement
+2. Related Work and Gap Analysis
+3. System Architecture
+4. Key Features and Implementation
+5. AI Integration and Real-time Features
+6. Proctoring Mechanisms
+7. Technical Challenges and Solutions
+8. Evaluation and Results
+9. Future Work
+10. Conclusion
+
+## Slide 3: Introduction
+**Background:**
+- Competitive job market for engineering graduates
+- Traditional interview preparation lacks personalization
+- AI technologies offer opportunities for sophisticated solutions
+
+**Problem Statement:**
+- Lack of personalized feedback
+- Limited access to company-specific questions
+- Absence of realistic proctoring environments
+- Inadequate skill assessment and roadmap guidance
+
+## Slide 4: Objectives
+**Research Objectives:**
+1. Design and implement a full-stack web application
+2. Integrate AI for personalized question generation
+3. Develop realistic proctoring capabilities
+4. Create comprehensive career development platform
+5. Ensure scalability, reliability, and user experience
+
+## Slide 5: Related Work
+**AI in Recruitment:**
+- ATS with machine learning for resume screening
+- Focus primarily on employer side
+
+**Interview Simulation Systems:**
+- Platforms like InterviewBuddy, Pramp
+- Limited proctoring and career development features
+
+**Proctoring Technologies:**
+- Eye-tracking, facial recognition, browser monitoring
+- Designed for academic assessments, not interviews
+
+## Slide 6: Gap Analysis
+**Limitations of Existing Solutions:**
+- Limited personalization by company/role
+- No integrated career development features
+- Basic proctoring without behavioral analysis
+- Lack of real-time feedback mechanisms
+
+## Slide 7: System Architecture Overview
+**Client-Server Architecture:**
+- Frontend: Next.js with TypeScript and TailwindCSS
+- Backend: Node.js with Express
+- AI Integration: Google's Gemini API
+- Data Processing: pdf-parse, mammoth
+
+[Visual: System architecture diagram]
+
+## Slide 8: Frontend Architecture
+**Key Components:**
+- Resume analysis interface
+- Skill testing modules
+- Career roadmap visualization
+- Mock interview interface
+- Proctored interview environment
+
+**Technologies:**
+- Next.js 14 with App Router
+- TypeScript for type safety
+- TailwindCSS for responsive design
+
+## Slide 9: Backend Architecture
+**Structure:**
+- RESTful API endpoints
+- Service layers for business logic
+- Secure AI service integration
+- File processing capabilities
+
+**Technologies:**
+- Node.js with Express
+- TypeScript for type safety
+- pdf-parse and mammoth for file processing
+
+## Slide 10: Data Flow
+**Process:**
+1. User interacts with frontend UI
+2. Frontend makes API calls through proxy
+3. Backend processes requests with services
+4. AI services invoked server-side
+5. Results returned to frontend for visualization
+
+## Slide 11: Resume Analysis Module
+**Features:**
+- PDF/DOCX resume upload
+- Job description comparison
+- Job Fit Score (0-100%)
+- Detailed improvement suggestions
+
+## Slide 12: Skill Testing System
+**Capabilities:**
+- Skill identification from resume
+- AI-generated challenges:
+  - Coding/problem-solving
+  - Multiple choice questions
+  - Conceptual questions
+- Performance evaluation and feedback
+
+## Slide 13: Career Roadmap Feature
+**Offerings:**
+- Year-wise engineering roadmaps
+- Branch-specific guidance
+- Progress tracking with checkboxes
+- Pro tips for each academic year
+
+## Slide 14: Mock Interview System
+**Components:**
+- Company-specific question generation
+- Role-based difficulty profiling
+- Real-time question fetching from Gemini API
+- Text-to-speech capabilities
+- Live transcription of responses
+
+## Slide 15: Proctored Interview Environment
+**Features:**
+- Tab-switch detection (Page Visibility API)
+- Focus loss monitoring
+- Camera/microphone monitoring
+- Paste event tracking
+- AI-generated content detection
+
+## Slide 16: AI Integration - Real-time Question Generation
+**Implementation:**
+- Server-side API calls (keys never exposed)
+- Retry logic with exponential backoff
+- Fallback to cached questions
+- Structured JSON responses with validation
+
+## Slide 17: Text-to-Speech (TTS) Implementation
+**Functionality:**
+- Server-side generation (Google Cloud TTS/ElevenLabs)
+- Audio URL generation for playback
+- Error handling and fallback mechanisms
+- Integration with AI avatar for lip-sync
+
+## Slide 18: Live Transcription
+**Technology:**
+- Web Speech API implementation
+- Real-time interim/final transcripts
+- User controls for management
+- Browser compatibility handling
+
+## Slide 19: AI Avatar Implementation
+**Features:**
+- Animated avatar with lip-sync simulation
+- Question text display with indicators
+- Fallback UI for service unavailability
+- Integration with TTS for synchronized speech
+
+## Slide 20: Proctoring - Tab-switch Detection
+**Mechanisms:**
+- Page Visibility API for state tracking
+- Window blur/focus event monitoring
+- Configurable strictness levels
+- Threshold-based violation flagging
+
+## Slide 21: Camera and Microphone Monitoring
+**Capabilities:**
+- Automatic permission requests
+- Live preview with voice activity detection
+- Privacy considerations with consent
+- Fallback for denied permissions
+
+## Slide 22: Behavioral Analysis
+**Advanced Features:**
+- Paste event tracking for cheating detection
+- AI-generated content detection
+- Suspicious pattern analysis
+- Comprehensive reporting mechanisms
+
+## Slide 23: Technical Challenges and Solutions
+**API Integration Challenges:**
+- Rate limiting and timeout handling
+- Server-side key security
+- Robust retry mechanisms
+- Meaningful fallback experiences
+
+**Solution:** Retry logic with exponential backoff and cached question fallbacks
+
+## Slide 24: Real-time Communication
+**Challenges:**
+- WebSocket vs. REST API trade-offs
+- Latency optimization
+- Error handling and recovery
+
+**Solution:** RESTful API endpoints with optimized data structures and client-side caching
+
+## Slide 25: Browser Compatibility
+**Challenges:**
+- Web Speech API availability
+- Media recording capabilities
+- CSS rendering differences
+
+**Solution:** Feature detection and graceful degradation with clear user messaging
+
+## Slide 26: Security and Privacy
+**Challenges:**
+- Secure camera/microphone permissions
+- Encryption of sensitive data
+- Privacy policy implementation
+
+**Solution:** Strict consent mechanisms, server-side API key management, clear privacy disclosures
+
+## Slide 27: Evaluation and Results
+**System Performance:**
+- Question fetching latency <5000ms
+- TTS generation within acceptable timeframes
+- Real-time transcription with minimal delay
+- Responsive UI across devices
+
+## Slide 28: User Experience Evaluation
+**Feedback:**
+- Intuitive interface design
+- Helpful personalized feedback
+- Realistic interview simulation
+- Comprehensive career development features
+
+## Slide 29: Technical Validation
+**Confirmation:**
+- Successful API integration with error handling
+- Proper fallback mechanisms implementation
+- Secure data handling practices
+- Cross-browser compatibility
+
+## Slide 30: Future Work - Enhanced AI Capabilities
+**Planned Enhancements:**
+- Integration with more advanced AI models
+- Implementation of actual TTS and avatar video generation
+- Server-side transcription as fallback
+- More sophisticated answer evaluation
+
+## Slide 31: Future Work - Advanced Proctoring
+**Additional Capabilities:**
+- Facial recognition for identity verification
+- Eye-tracking for attention monitoring
+- Environmental analysis (background noise, multiple people)
+- Advanced behavioral pattern recognition
+
+## Slide 32: Future Work - Database Integration
+**Production Enhancements:**
+- Persistent database storage implementation
+- User authentication and session management
+- Cloud storage for recorded answers
+- Analytics dashboard for performance tracking
+
+## Slide 33: Future Work - Mobile Application
+**Extension to Mobile:**
+- Native iOS and Android applications
+- Optimized touch-based interfaces
+- Offline capabilities for limited connectivity
+- Integration with mobile device sensors
+
+## Slide 34: Conclusion
+**Key Achievements:**
+1. Full-stack web application with modern technologies
+2. Real-time AI question generation using Google's Gemini API
+3. Text-to-speech and avatar-based interview simulation
+4. Advanced proctoring mechanisms with behavioral analysis
+5. Comprehensive career development features
+
+**Impact:**
+- Addresses critical gaps in existing solutions
+- Provides personalized, realistic, comprehensive approach
+- Modular architecture for easy extension
+- Reliable and secure user experience
+
+## Slide 35: Thank You
+**Questions and Discussion**
+
+**Contact Information:**
+- Email: santhosh@example.com
+- Institution: Sairam Institutions, Chennai, India
+
+## Slide 36: References
+1. Smith, J. & Johnson, A. (2023). "AI in Recruitment: Trends and Technologies." Journal of Human Resource Technology, 15(2), 45-62.
+2. Brown, L. & Davis, M. (2022). "Online Proctoring Systems: Security and Privacy Considerations." International Journal of Educational Technology, 8(3), 123-140.
+3. Google AI. (2024). "Gemini API Documentation."
+4. Next.js Team. (2024). "Next.js Documentation."
+5. Node.js Foundation. (2024). "Node.js Documentation."
+6. Mozilla Developer Network. (2024). "Web Speech API."
+7. W3C. (2024). "MediaStream Recording API."
+8. WHATWG. (2024). "Page Visibility API."

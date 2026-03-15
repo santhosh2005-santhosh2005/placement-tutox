@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Clean White Theme - AI Tutor × Udaan AI */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    /* Black Primary */
+    --primary: 0 0% 10%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 0 0% 20%;
+
+    /* Dark Gray Secondary */
+    --secondary: 0 0% 30%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-glow: 0 0% 40%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --ring: 0 0% 20%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    --gradient-radial: radial-gradient(circle at center, hsl(var(--primary) / 0.1) 0%, transparent 70%);
+    --gradient-glow: linear-gradient(135deg, hsl(var(--primary-glow) / 0.3) 0%, hsl(var(--secondary-glow) / 0.3) 100%);
+
+    /* Glassmorphism */
+    --glass-bg: hsl(0 0% 100% / 0.7);
+    --glass-border: hsl(0 0% 10% / 0.1);
+    
+    /* Shadows & Glows */
+    --shadow-primary: 0 4px 20px hsl(var(--primary) / 0.15);
+    --shadow-secondary: 0 4px 20px hsl(var(--secondary) / 0.15);
+    --shadow-elegant: 0 20px 60px -15px hsl(0 0% 0% / 0.15);
+    
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glow-primary {
+    box-shadow: var(--shadow-primary);
+  }
+
+  .glow-secondary {
+    box-shadow: var(--shadow-secondary);
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      opacity: 1;
+      filter: drop-shadow(0 0 20px hsl(var(--primary) / 0.5));
+    }
+    50% { 
+      opacity: 0.7;
+      filter: drop-shadow(0 0 40px hsl(var(--primary) / 0.8));
+    }
+  }
+}
