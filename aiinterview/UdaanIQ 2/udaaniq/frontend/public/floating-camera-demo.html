@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Camera Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .instructions {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .feature-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .feature-list ul {
+            padding-left: 20px;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+        }
+        .status {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Floating Camera Component Demo</h1>
+        
+        <div class="instructions">
+            <h2>How to Test the Floating Camera</h2>
+            <p>This demo shows the features of the updated FloatingCamera component that fixes the findDOMNode error:</p>
+        </div>
+        
+        <div class="feature-list">
+            <h3>Key Features Implemented:</h3>
+            <ul>
+                <li>✅ Fixed <code>findDOMNode</code> error by using <code>nodeRef</code> API in react-draggable</li>
+                <li>✅ Draggable camera preview that can be moved around the screen</li>
+                <li>✅ Double-click to toggle between small (160x120) and large (320x240) sizes</li>
+                <li>✅ Mute/Unmute button for audio control</li>
+                <li>✅ Close button to hide the camera preview</li>
+                <li>✅ Position and size persist in localStorage</li>
+                <li>✅ Material 3 styling with rounded corners and shadow</li>
+                <li>✅ Accessibility features (aria-label, proper contrast)</li>
+                <li>✅ Compatible with React 18 and Next.js</li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            <h3>Implementation Status:</h3>
+            <p>✅ Component updated to use nodeRef pattern</p>
+            <p>✅ findDOMNode error resolved</p>
+            <p>✅ All existing functionality preserved</p>
+            <p>✅ Test file created</p>
+            <p>✅ CHANGELOG updated</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>To Test in the Actual Application:</h3>
+            <ol>
+                <li>Start the backend server: <code>cd backend && npm run dev</code></li>
+                <li>Start the frontend server: <code>cd frontend && npm run dev</code></li>
+                <li>Navigate to Mock Interview or Proctored Interview</li>
+                <li>Click "Start" to begin the interview</li>
+                <li>Grant camera permissions when prompted</li>
+                <li>Observe the floating camera preview that appears</li>
+                <li>Try dragging it around the screen</li>
+                <li>Double-click to change its size</li>
+                <li>Use the mute and close buttons</li>
+                <li>Refresh the page to see that position/size are preserved</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+@import 'tailwindcss';
+
+:root {
+  /* Design tokens as specified */
+  --color-primary: #1A73E8;
+  --color-secondary: #34A853;
+  --color-accent: #FBBC05;
+  --color-error: #EA4335;
+  --bg-light: #F9FAFB;
+  --surface-light: #FFFFFF;
+  --text-primary: #202124;
+  --text-secondary: #5F6368;
+  --bg-dark: #0F1113;
+  --surface-dark: #131618;
+  --text-on-dark: #E8EAED;
+  --rounded: 12px;
+  --elevation-1: 0 1px 3px rgba(2, 6, 23, 0.06);
+  --elevation-2: 0 6px 18px rgba(2, 6, 23, 0.12);
+  
+  /* Additional variables for consistent theming */
+  --border-light: #DADCE0;
+  --border-dark: #3C4043;
+  --hover-light: #F8F9FA;
+  --hover-dark: #303134;
+}
+
+/* Light theme (default) */
+:root,
+[data-theme="light"] {
+  --bg: var(--bg-light);
+  --surface: var(--surface-light);
+  --text: var(--text-primary);
+  --text-alt: var(--text-secondary);
+  --border: var(--border-light);
+  --hover: var(--hover-light);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --surface: var(--surface-dark);
+  --text: var(--text-on-dark);
+  --text-alt: rgba(232, 234, 237, 0.85);
+  --border: var(--border-dark);
+  --hover: var(--hover-dark);
+}
+
+/* Background gradients */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--bg-light) 0%, var(--surface-light) 100%);
+}
+
+[data-theme="dark"] body::before {
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--surface-dark) 100%);
+}
+
+/* Subtle noise overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Google Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Material Design Components */
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply bg-[#1A73E8] text-white font-medium py-2 px-4 rounded-[var(--rounded)] hover:bg-[#1967D2] transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#1A73E8];
+  }
+  
+  .btn-secondary {
+    @apply bg-[var(--surface)] text-[#1A73E8] font-medium py-2 px-4 rounded-[var(--rounded)] border border-[var(--border)] hover:bg-[var(--hover)] transition-all duration-200 shadow-sm hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1A73E8];
+  }
+  
+  .btn-success {
+    @apply bg-[#34A853] text-white font-medium py-2 px-4 rounded-[var(--rounded)] hover:bg-[#2D9548] transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#34A853];
+  }
+  
+  .btn-warning {
+    @apply bg-[#FBBC05] text-[#202124] font-medium py-2 px-4 rounded-[var(--rounded)] hover:bg-[#EAA900] transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#FBBC05];
+  }
+  
+  .btn-error {
+    @apply bg-[#EA4335] text-white font-medium py-2 px-4 rounded-[var(--rounded)] hover:bg-[#D93025] transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#EA4335];
+  }
+  
+  /* Cards */
+  .card {
+    @apply bg-[var(--surface)] rounded-[var(--rounded)] shadow-[var(--elevation-1)] p-5 transition-all duration-200 hover:shadow-[var(--elevation-2)];
+  }
+  
+  .card-elevated {
+    @apply bg-[var(--surface)] rounded-[var(--rounded)] shadow-[var(--elevation-2)] p-5 transition-all duration-200;
+  }
+  
+  /* Inputs */
+  input, select, textarea {
+    @apply bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] placeholder:text-[var(--text-alt)] rounded-[var(--rounded)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1A73E8] focus:border-[#1A73E8];
+  }
+  
+  /* Gradient CTA */
+  .btn-gradient {
+    @apply bg-gradient-to-r from-[#1A73E8] to-[#34A853] text-white font-medium py-2 px-4 rounded-[var(--rounded)] hover:opacity-90 transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#1A73E8];
+  }
+}
+
+/* Typography */
+@layer base {
+  h1 { @apply text-3xl font-normal tracking-tight text-[var(--text)]; }
+  h2 { @apply text-2xl font-normal tracking-tight text-[var(--text)]; }
+  h3 { @apply text-xl font-normal text-[var(--text)]; }
+  h4 { @apply text-lg font-normal text-[var(--text)]; }
+  p { @apply text-base text-[var(--text-alt)]; }
+  a { @apply text-[#1A73E8] hover:text-[#1967D2]; }
+  
+  /* Material Design Spacing */
+  .spacing-xs { @apply my-2; }
+  .spacing-sm { @apply my-4; }
+  .spacing-md { @apply my-6; }
+  .spacing-lg { @apply my-8; }
+  .spacing-xl { @apply my-12; }
+}
+
+/* Focus styles for accessibility */
+.focus-ring {
+  @apply outline-none ring-2 ring-[#1A73E8];
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-alt);
+}
+
+/* Animation for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
