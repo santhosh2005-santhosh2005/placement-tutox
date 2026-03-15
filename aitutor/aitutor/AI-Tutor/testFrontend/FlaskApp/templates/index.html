@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TUTIX | AI Tutor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Unified Header with Title and Switch Button -->
+      <header style="background-color: #ffffff; padding: 15px 20px; display: flex; justify-content: center; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); flex-wrap: wrap; border-bottom: 1px solid #e0e0e0;">
+        <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+          <h1 style="margin: 0; color: #000000; font-size: 1.8rem; text-align: center;">
+            <span class="tutix">TUTIX</span> – <span class="tagline">The Voice of Knowledge</span>
+          </h1>
+        </div>
+      </header>
+
+      <!-- Chat History Sidebar -->
+      <div class="history-sidebar" id="history-sidebar">
+        <div class="sidebar-header">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> Chat History</h3>
+          <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+        </div>
+        
+        <div class="sidebar-search">
+          <div class="search-container">
+            <input type="text" id="sidebar-search-input" placeholder="Search history..." onkeyup="handleSidebarSearch(event)" />
+            <button onclick="performSidebarSearch()" class="search-icon-btn">
+              <i class="fa-solid fa-search"></i>
+            </button>
+          </div>
+          
+          <!-- Return to UdaanIQ Button -->
+          <div style="margin-top: 15px;">
+            <button 
+              onclick="window.open('http://localhost:3000', '_self')"
+              style="width: 100%; padding: 10px; background-color: #1A73E8; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease;"
+              onmouseover="this.style.backgroundColor='#1557B0'; this.style.transform='translateY(-2px)';" 
+              onmouseout="this.style.backgroundColor='#1A73E8'; this.style.transform='translateY(0)';"
+            >
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>Return to UdaanIQ</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="sidebar-stats">
+          <div class="stat-item">
+            <span class="stat-label">Total:</span>
+            <span class="stat-value" id="sidebar-total-messages">0</span>
+          </div>
+        </div>
+        
+        <div class="sidebar-messages" id="sidebar-messages">
+          <div class="loading-sidebar">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span>Loading...</span>
+          </div>
+        </div>
+        
+        <div class="sidebar-actions">
+          <button onclick="exportSidebarHistory()" class="sidebar-action-btn">
+            <i class="fa-solid fa-download"></i>
+            <span>Export</span>
+          </button>
+          <button onclick="clearSidebarHistory()" class="sidebar-action-btn danger">
+            <i class="fa-solid fa-trash"></i>
+            <span>Clear</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Related Topics Sidebar -->
+      <div class="related-topics-sidebar" id="related-topics-sidebar">
+        <div class="sidebar-header">
+          <h3><i class="fa-solid fa-lightbulb"></i> Related Topics</h3>
+          <button class="sidebar-toggle-btn" onclick="toggleRelatedTopicsSidebar()">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        
+        <div class="related-topics-content" id="related-topics-content">
+          <div class="loading-sidebar">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <span>Ask a question to see related topics</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Chat Container -->
+      <div class="chat-container" id="main-chat-container">
+      <div id="title">
+        <h3 class="typing-text"><span></span></h3>
+      </div>
+
+      <!-- Status indicator for RAG system -->
+      <div id="rag-status" class="status-indicator">
+        <span class="status-dot inactive"></span>
+        <span class="status-text">No PDFs loaded</span>
+      </div>
+
+      <div id="chat-box"></div>
+
+      <!-- Listening Popup -->
+      <div id="listening-popup" class="hidden">
+        <div class="listening-box">
+          <p id="listening-text">Listening...</p>
+          <div class="wave-container">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF Loading Progress -->
+      <div id="loading-indicator" class="hidden">
+        <div class="loading-box">
+          <p id="loading-text">Loading PDFs...</p>
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <textarea
+          class="textbar"
+          id="user-input"
+          placeholder="Type your question..."
+          rows="1"
+          onkeydown="handleTextareaInput(event)"
+        ></textarea>
+        <div class="button-group">
+          <button class="send-button" onclick="sendMessage()">
+            <i class="fa-regular fa-paper-plane"></i>
+            <span class="tooltip">Ask Tutor</span>
+          </button>
+          <button class="mic-button" onclick="toggleVoiceInput()">
+            <i class="fa-solid fa-microphone-lines"></i>
+            <span class="tooltip">Tap to speak/stop</span>
+          </button>
+          <button
+            class="doc-button"
+            onclick="document.getElementById('pdf-files').click()"
+          >
+            <i class="fa-solid fa-paperclip"></i>
+            <span class="tooltip">Add PDF Files</span>
+          </button>
+
+          <button class="stop-button" onclick="stopSpeech()">
+            <i class="fa-solid fa-stop"></i>
+            <span class="tooltip">Stop speech</span>
+          </button>
+          
+          <button class="visual-button" onclick="toggleVisualControls()">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="tooltip">Generate Visual</span>
+          </button>
+          
+          <button class="youtube-button" onclick="showYouTubeInput()">
+            <i class="fa-brands fa-youtube"></i>
+            <span class="tooltip">YouTube Recs</span>
+          </button>
+          
+          <button class="history-button" onclick="toggleSidebar()">
+            <i class="fa-solid fa-sidebar"></i>
+            <span class="tooltip">Toggle Sidebar</span>
+          </button>
+        </div>
+      </div>
+
+        <div class="pdf-controls">
+          <input
+            type="file"
+            id="pdf-files"
+            accept=".pdf"
+            multiple
+            style="display: none"
+            onchange="handleFileUpload(this.files)"
+          />
+          <input
+            type="file"
+            id="pdf-folder"
+            webkitdirectory
+            directory
+            multiple
+            style="display: none"
+            onchange="handleFolderUpload(this.files)"
+          />
+
+        
+        </div>
+        
+        <!-- Visual Controls Panel -->
+        <div id="visual-controls" class="visual-controls hidden">
+          <div class="visual-options">
+            <h4>Generate Visual Content</h4>
+            <div class="visual-buttons">
+              <button onclick="generateVisual('chart')" class="visual-option-btn">
+                <i class="fa-solid fa-chart-bar"></i>
+                <span>Chart</span>
+              </button>
+              <button onclick="generateVisual('diagram')" class="visual-option-btn">
+                <i class="fa-solid fa-sitemap"></i>
+                <span>Diagram</span>
+              </button>
+              <button onclick="generateVisual('timeline')" class="visual-option-btn">
+                <i class="fa-solid fa-timeline"></i>
+                <span>Timeline</span>
+              </button>
+              <button onclick="generateVisual('comparison')" class="visual-option-btn">
+                <i class="fa-solid fa-balance-scale"></i>
+                <span>Compare</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- YouTube Recommendation Input Modal -->
+        <div id="youtube-modal" class="modal hidden">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3><i class="fa-brands fa-youtube"></i> YouTube Recommendations</h3>
+              <button class="close-button" onclick="closeYouTubeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p>Enter a topic to get recommended YouTube videos:</p>
+              <input type="text" id="youtube-topic" placeholder="e.g., Machine Learning, Python, etc." />
+              <button class="submit-button" onclick="submitYouTubeRequest()">Get Recommendations</button>
+            </div>
+          </div>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

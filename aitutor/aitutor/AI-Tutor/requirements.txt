@@ -1,0 +1,59 @@
+# Langchain
+langchain 
+langchain-google-genai
+langchain-community
+langchain-cli
+
+
+# Gemini
+google-generativeai
+
+
+# Environment
+python-dotenv
+
+
+# Flask Frontend/Backend
+flask
+flask-cors
+
+
+# Parsers
+markdown2 
+mistune
+html2text
+pypdf
+
+
+# Web Scrapings
+serp 
+serpapi
+googlesearch-python
+google-search-results
+beautifulsoup4
+
+
+# NLP
+langchain-ollama
+sentence_transformers
+
+
+# RAG
+faiss-cpu
+
+
+# Conversational Agents
+pyttsx3
+speechrecognition
+pyaudio
+
+
+# Visual Content Generation
+matplotlib
+seaborn
+plotly
+pandas
+numpy
+pillow
+
+
